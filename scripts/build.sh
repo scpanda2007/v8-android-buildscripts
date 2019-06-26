@@ -66,7 +66,7 @@ function build_arch()
         # V8 mksnapshot will have alignment exception for lite mode, workaround to turn it off.
         gn gen --args="$GN_ARGS_BASE $GN_ARGS_BUILD_TYPE target_cpu=\"$arch\" v8_enable_lite_mode=false" out.v8.$arch
     else
-        gn gen --args="$GN_ARGS_BASE $GN_ARGS_BUILD_TYPE target_cpu=\"$arch\" v8_enable_lite_mode=true" out.v8.$arch
+        gn gen --args="$GN_ARGS_BASE $GN_ARGS_BUILD_TYPE target_cpu=\"$arch\" v8_enable_lite_mode=false" out.v8.$arch
     fi
     date ; ninja ${NINJA_PARAMS} -C out.v8.$arch libv8 ; date
     mkdir -p $BUILD_DIR/lib/$arch_for_android
