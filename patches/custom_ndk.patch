@@ -1,0 +1,15 @@
+diff --git a/build/config/android/BUILD.gn b/build/config/android/BUILD.gn
+index 233e8b0e7..2e366a02f 100644
+--- a/build/config/android/BUILD.gn
++++ b/build/config/android/BUILD.gn
+@@ -106,6 +106,10 @@ config("runtime_library") {
+   # strange errors. The include ordering here is important; change with
+   # caution.
+   cflags_cc = [ "-isystem" +
++                rebase_path("$android_libcpp_root/include",
++                            root_build_dir) ]
++
++  cflags_cc += [ "-isystem" +
+                 rebase_path("$android_ndk_root/sources/android/support/include",
+                             root_build_dir) ]
+

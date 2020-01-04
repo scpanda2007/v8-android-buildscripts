@@ -10,6 +10,9 @@ V8_PATCHSET_ANDROID=(
 
   # https://github.com/Kudo/react-native-v8/issues/27
   "workaround_jsi_object_freeze.patch"
+
+  # Custom NDK patch
+  "custom_ndk.patch"
 )
 
 V8_PATCHSET_IOS=(
