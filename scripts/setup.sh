@@ -29,7 +29,7 @@ if [[ ! -d "${DEPOT_TOOLS_DIR}" || ! -f "${DEPOT_TOOLS_DIR}/gclient" ]]; then
   git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git "${DEPOT_TOOLS_DIR}"
 fi
 
-gclient config --name v8 --unmanaged "https://chromium.googlesource.com/v8/v8.git"
+gclient config --name v8 --unmanaged "https://github.com/ncsoft/v8.git"
 
 if [[ ${MKSNAPSHOT_ONLY} = "1" ]]; then
   gclient sync ${GCLIENT_SYNC_ARGS}
@@ -42,7 +42,12 @@ if [[ ${PLATFORM} = "ios" ]]; then
 fi
 
 if [[ ${PLATFORM} = "android" ]]; then
+  
   gclient sync --deps=android ${GCLIENT_SYNC_ARGS}
+  
+  gclient sync --revision remotes/origin/7.7.299.9999 --nohooks
+  gclient runhooks
+  
   sudo bash -c 'v8/build/install-build-deps-android.sh'
 
   # Workaround to install missing sysroot
