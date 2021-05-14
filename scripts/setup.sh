@@ -27,6 +27,7 @@ function installNDK() {
 
 if [[ ! -d "${DEPOT_TOOLS_DIR}" || ! -f "${DEPOT_TOOLS_DIR}/gclient" ]]; then
   git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git "${DEPOT_TOOLS_DIR}"
+  patch "${DEPOT_TOOLS_DIR}/update_depot_tools" < "${PATCHES_DIR}/update_depot_tools_r.patch"
 fi
 
 gclient config --name v8 --unmanaged "https://github.com/ncsoft/v8.git"
