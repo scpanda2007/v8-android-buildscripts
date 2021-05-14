@@ -96,19 +96,19 @@ function build_arch()
   if [[ ${MKSNAPSHOT_ONLY} = "1" ]]; then
     date ; ninja ${NINJA_PARAMS} -C "out.v8.${arch}" run_mksnapshot_default ; date
   else
-    date ; ninja ${NINJA_PARAMS} -C "out.v8.${arch}" ${target} ; date
+    date ; ninja ${NINJA_PARAMS} -C "out.v8.${arch}" ; date
 
-    mkdir -p "${BUILD_DIR}/lib/${platform_arch}"
-    cp -f "out.v8.${arch}/${target}${target_ext}" "${BUILD_DIR}/lib/${platform_arch}/${target}${target_ext}"
+    # mkdir -p "${BUILD_DIR}/lib/${platform_arch}"
+    # cp -f "out.v8.${arch}/${target}${target_ext}" "${BUILD_DIR}/lib/${platform_arch}/${target}${target_ext}"
 
-    if [[ -d "out.v8.${arch}/lib.unstripped" ]]; then
-      mkdir -p "${BUILD_DIR}/lib.unstripped/${platform_arch}"
-      cp -f "out.v8.${arch}/lib.unstripped/${target}${target_ext}" "${BUILD_DIR}/lib.unstripped/${platform_arch}/${target}${target_ext}"
-    fi
+    # if [[ -d "out.v8.${arch}/lib.unstripped" ]]; then
+    #  mkdir -p "${BUILD_DIR}/lib.unstripped/${platform_arch}"
+    #  cp -f "out.v8.${arch}/lib.unstripped/${target}${target_ext}" "${BUILD_DIR}/lib.unstripped/${platform_arch}/${target}${target_ext}"
+    # fi
   fi
 
-  mkdir -p "${BUILD_DIR}/tools/${platform_arch}"
-  cp -f out.v8.${arch}/clang_*/mksnapshot "${BUILD_DIR}/tools/${platform_arch}/mksnapshot"
+  # mkdir -p "${BUILD_DIR}/tools/${platform_arch}"
+  # cp -f out.v8.${arch}/clang_*/mksnapshot "${BUILD_DIR}/tools/${platform_arch}/mksnapshot"
 }
 
 if [[ ${PLATFORM} = "android" ]]; then
