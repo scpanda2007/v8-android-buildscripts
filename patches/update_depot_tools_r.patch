@@ -1,0 +1,19 @@
+--- update_depot_tools	2021-05-14 22:46:07.009003387 +0800
++++ update_depot_tools_root	2021-05-14 22:47:12.000000000 +0800
+@@ -5,11 +5,11 @@
+ 
+ # This script will try to sync the bootstrap directories and then defer control.
+ 
+-if [ "$USER" == "root" ];
+-then
+-  echo Running depot tools as root is sad.
+-  exit
+-fi
++# if [ "$USER" == "root" ];
++# then
++#  echo Running depot tools as root is sad.
++#  exit
++# fi
+ 
+ # Test if this script is running under a MSYS install. This is likely an error
+ # if it is, so we warn the user accordingly.
