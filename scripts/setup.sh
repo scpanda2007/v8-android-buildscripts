@@ -44,10 +44,6 @@ fi
 if [[ ${PLATFORM} = "android" ]]; then
   
   gclient sync --deps=android ${GCLIENT_SYNC_ARGS}
-  
-  gclient sync --revision remotes/origin/7.7.299.9999 --nohooks
-  gclient runhooks
-  
   sudo bash -c 'v8/build/install-build-deps-android.sh'
 
   # Workaround to install missing sysroot
