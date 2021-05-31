@@ -98,13 +98,13 @@ function build_arch()
   else
     date ; ninja ${NINJA_PARAMS} -C "out.v8.${arch}" ; date
 
-    # mkdir -p "${BUILD_DIR}/lib/${platform_arch}"
-    # cp -f "out.v8.${arch}/${target}${target_ext}" "${BUILD_DIR}/lib/${platform_arch}/${target}${target_ext}"
+    mkdir -p "${BUILD_DIR}/lib/${platform_arch}"
+    cp -f "out.v8.${arch}/${target}${target_ext}" "${BUILD_DIR}/lib/${platform_arch}/${target}${target_ext}"
 
-    # if [[ -d "out.v8.${arch}/lib.unstripped" ]]; then
-    #  mkdir -p "${BUILD_DIR}/lib.unstripped/${platform_arch}"
-    #  cp -f "out.v8.${arch}/lib.unstripped/${target}${target_ext}" "${BUILD_DIR}/lib.unstripped/${platform_arch}/${target}${target_ext}"
-    # fi
+    if [[ -d "out.v8.${arch}/lib.unstripped" ]]; then
+      mkdir -p "${BUILD_DIR}/lib.unstripped/${platform_arch}"
+      cp -f "out.v8.${arch}/lib.unstripped/${target}${target_ext}" "${BUILD_DIR}/lib.unstripped/${platform_arch}/${target}${target_ext}"
+    fi
   fi
 
   # mkdir -p "${BUILD_DIR}/tools/${platform_arch}"
