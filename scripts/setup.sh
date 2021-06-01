@@ -51,11 +51,12 @@ if [[ ${PLATFORM} = "android" ]]; then
   
   gclient runhooks
   
-  sudo bash -c 'v8/build/install-build-deps-android.sh'
+  # sudo bash -c 'v8/build/install-build-deps-android.sh'
 
   # Workaround to install missing sysroot
-  gclient sync
+  # gclient sync
 
   installNDK
+  echo "please run v8/build/install-build-deps-android.sh"
   exit 0
 fi
