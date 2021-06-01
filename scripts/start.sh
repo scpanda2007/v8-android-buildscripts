@@ -7,11 +7,11 @@ fi
 
 cd "${V8_DIR}"
 
-#if [[ ${MKSNAPSHOT_ONLY} = "1" ]]; then
-#  gclient sync --reset --with_branch_head --revision ${V8_VERSION}
-#else
-#  gclient sync --deps=${PLATFORM} --reset --with_branch_head --revision ${V8_VERSION}
-#fi
+if [[ ${MKSNAPSHOT_ONLY} = "1" ]]; then
+  gclient sync --reset --with_branch_head --revision ${V8_VERSION}
+else
+  gclient sync --deps=${PLATFORM} --reset --with_branch_head --revision ${V8_VERSION}
+fi
 
 cd "${ROOT_DIR}"
 scripts/patch.sh ${PLATFORM}
