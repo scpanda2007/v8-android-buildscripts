@@ -6,7 +6,7 @@ source $(dirname $0)/env.sh
 ######################################################################################
 V8_PATCHSET_ANDROID=(
   # V8 shared library support
-  "v8_shared_library_r.patch"
+  # "v8_shared_library_r.patch"
 
   # https://github.com/Kudo/react-native-v8/issues/27
   # "workaround_jsi_object_freeze.patch"
@@ -48,8 +48,9 @@ if [[ ${PLATFORM} = "android" ]]; then
     printf "### Patch set: ${patch}\n"
     patch -d "${V8_DIR}" -p1 < "${PATCHES_DIR}/$patch"
   done
-
-  setupNDK
+  
+  # not need to install now, just try to use default
+  # setupNDK 
 elif [[ ${PLATFORM} = "ios" ]]; then
   for patch in "${V8_PATCHSET_IOS[@]}"
   do

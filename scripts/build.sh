@@ -5,11 +5,16 @@ BUILD_TYPE="Release"
 
 GN_ARGS_BASE="
   target_os=\"${PLATFORM}\"
-  is_component_build=false
-  use_debug_fission=false
-  use_custom_libcxx=false
-  v8_use_external_startup_data=false
-  icu_use_data_file=false
+  android_unstripped_runtime_outputs = false
+  is_component_build = false
+  use_goma = false
+  v8_use_external_startup_data = false
+  v8_android_log_stdout = true
+  v8_static_library = true
+  v8_monolithic = true
+  v8_enable_pointer_compression = false
+  use_custom_libcxx = false
+  use_custom_libcxx_for_host = false
 "
 
 if [[ ${PLATFORM} = "ios" ]]; then
@@ -33,6 +38,7 @@ then
 else
   GN_ARGS_BUILD_TYPE='
     is_debug=false
+	symbol_level=1
   '
 fi
 
@@ -77,12 +83,14 @@ function build_arch()
 {
   local arch=$1
   local platform_arch=$(normalize_arch_for_platform $arch)
-
+  
+  local build_target=''
   local target=''
   local target_ext=''
   if [[ ${PLATFORM} = "android" ]]; then
-    target="libv8android"
-    target_ext=".so"
+    build_target="v8_monolith"
+    target="libv8_monolith"
+    target_ext=".lib"
   elif [[ ${PLATFORM} = "ios" ]]; then
     target="libv8"
     target_ext=".dylib"
@@ -91,12 +99,12 @@ function build_arch()
   fi
 
   echo "Build v8 ${arch} variant NO_INTL=${NO_INTL}"
-  gn gen --args="${GN_ARGS_BASE} ${GN_ARGS_BUILD_TYPE} target_cpu=\"${arch}\"" "out.v8.${arch}"
+  gn gen --args="${GN_ARGS_BASE} ${GN_ARGS_BUILD_TYPE} target_cpu=\"${arch}\" v8_target_cpu=\"${arch}\"" "out.v8.${arch}"
 
   if [[ ${MKSNAPSHOT_ONLY} = "1" ]]; then
     date ; ninja ${NINJA_PARAMS} -C "out.v8.${arch}" run_mksnapshot_default ; date
   else
-    date ; ninja ${NINJA_PARAMS} -C "out.v8.${arch}" ; date
+    date ; ninja ${NINJA_PARAMS} -C "out.v8.${arch}" "${build_target}" ; date
 
     mkdir -p "${BUILD_DIR}/lib/${platform_arch}"
     cp -f "out.v8.${arch}/${target}${target_ext}" "${BUILD_DIR}/lib/${platform_arch}/${target}${target_ext}"
@@ -117,6 +125,6 @@ if [[ ${PLATFORM} = "android" ]]; then
   build_arch "arm64"
   build_arch "x64"
 elif [[ ${PLATFORM} = "ios" ]]; then
-  build_arch "arm64"
-  build_arch "x64"
+  build_arch "arm64" "arm64"
+  build_arch "x64" "x64"
 fi

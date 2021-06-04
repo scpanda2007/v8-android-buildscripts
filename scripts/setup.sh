@@ -30,8 +30,7 @@ if [[ ! -d "${DEPOT_TOOLS_DIR}" || ! -f "${DEPOT_TOOLS_DIR}/gclient" ]]; then
   patch "${DEPOT_TOOLS_DIR}/update_depot_tools" < "${PATCHES_DIR}/update_depot_tools_r.patch"
 fi
 
-gclient config --name v8 --unmanaged "https://github.com/ncsoft/v8.git"
-
+fetch v8
 
 if [[ ${MKSNAPSHOT_ONLY} = "1" ]]; then
   gclient sync ${GCLIENT_SYNC_ARGS}
@@ -45,18 +44,13 @@ fi
 
 if [[ ${PLATFORM} = "android" ]]; then
   
-  echo "target_os = ['android']" >> .gclient
-
-  gclient sync --revision remotes/origin/7.7.299.9999 --nohooks
-  
-  gclient runhooks
-  
-  # sudo bash -c 'v8/build/install-build-deps-android.sh'
+  echo "target_os = ['android']" >> .gclient  
+  sudo bash -c 'v8/build/install-build-deps-android.sh'
 
   # Workaround to install missing sysroot
-  # gclient sync
-
-  installNDK
-  echo "please run v8/build/install-build-deps-android.sh"
+  gclient sync
+  
+  # not need to install ndk right now, just try to use default
+  # installNDK
   exit 0
 fi
