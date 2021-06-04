@@ -90,7 +90,7 @@ function build_arch()
   if [[ ${PLATFORM} = "android" ]]; then
     build_target="v8_monolith"
     target="libv8_monolith"
-    target_ext=".lib"
+    target_ext=".a"
   elif [[ ${PLATFORM} = "ios" ]]; then
     target="libv8"
     target_ext=".dylib"
@@ -107,7 +107,7 @@ function build_arch()
     date ; ninja ${NINJA_PARAMS} -C "out.v8.${arch}" "${build_target}" ; date
 
     mkdir -p "${BUILD_DIR}/lib/${platform_arch}"
-    cp -f "out.v8.${arch}/${target}${target_ext}" "${BUILD_DIR}/lib/${platform_arch}/${target}${target_ext}"
+    cp -f "out.v8.${arch}/obj/${target}${target_ext}" "${BUILD_DIR}/lib/${platform_arch}/${target}${target_ext}"
 
     if [[ -d "out.v8.${arch}/lib.unstripped" ]]; then
       mkdir -p "${BUILD_DIR}/lib.unstripped/${platform_arch}"
