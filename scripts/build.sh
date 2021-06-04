@@ -38,7 +38,7 @@ then
 else
   GN_ARGS_BUILD_TYPE='
     is_debug=false
-	symbol_level=1
+    symbol_level=1
   '
 fi
 
