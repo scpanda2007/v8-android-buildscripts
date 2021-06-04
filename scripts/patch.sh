@@ -50,7 +50,7 @@ if [[ ${PLATFORM} = "android" ]]; then
   done
   
   # not need to install now, just try to use default
-  # setupNDK 
+  setupNDK 
 elif [[ ${PLATFORM} = "ios" ]]; then
   for patch in "${V8_PATCHSET_IOS[@]}"
   do

@@ -51,6 +51,6 @@ if [[ ${PLATFORM} = "android" ]]; then
   gclient sync
   
   # not need to install ndk right now, just try to use default
-  # installNDK
+  installNDK
   exit 0
 fi
