@@ -75,9 +75,12 @@ if [[ ${PLATFORM} = "android" ]]; then
 
   mkdir -p "${DIST_PACKAGE_DIR}"
   createAAR
-  createUnstrippedLibs
+  # createUnstrippedLibs
+  copyDylib
   copyHeaders
   copyTools
+  rm -rf "${DIST_PACKAGE_DIR}.tar.gz"
+  tar -zcvf "${DIST_PACKAGE_DIR}.tar.gz" "${DIST_PACKAGE_DIR}"
 elif [[ ${PLATFORM} = "ios" ]]; then
   createUniversalDylib
   copyDylib
