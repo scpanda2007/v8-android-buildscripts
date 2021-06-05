@@ -78,7 +78,7 @@ if [[ ${PLATFORM} = "android" ]]; then
   # createUnstrippedLibs
   copyDylib
   copyHeaders
-  copyTools
+  # copyTools
   rm -rf "${DIST_PACKAGE_DIR}.tar.gz"
   tar -zcvf "${DIST_PACKAGE_DIR}.tar.gz" "${DIST_PACKAGE_DIR}"
 elif [[ ${PLATFORM} = "ios" ]]; then
